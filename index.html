@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zdrowe Życie - Twoja Droga do Lepszego Zdrowia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        body.dark-mode header,
+        body.dark-mode .hero,
+        body.dark-mode .section,
+        body.dark-mode footer {
+            background: rgba(30, 30, 30, 0.95);
+            color: #e0e0e0;
+        }
+
+        body.dark-mode h1,
+        body.dark-mode h2 {
+            color: #9d84f5;
+        }
+
+        body.dark-mode h3 {
+            color: #b19cd9;
+        }
+
+        body.dark-mode .hero p,
+        body.dark-mode p {
+            color: #c0c0c0;
+        }
+
+        body.dark-mode .calculator {
+            background: #2a2a2a;
+        }
+
+        body.dark-mode input,
+        body.dark-mode select {
+            background: #3a3a3a;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+
+        body.dark-mode input:focus,
+        body.dark-mode select:focus {
+            border-color: #9d84f5;
+        }
+
+        body.dark-mode .result {
+            background: #2a2a2a;
+            border-left-color: #9d84f5;
+        }
+
+        body.dark-mode .recipe-card {
+            background: #2a2a2a;
+            border-color: #444;
+        }
+
+        body.dark-mode .recipe-card:hover {
+            border-color: #9d84f5;
+            box-shadow: 0 5px 15px rgba(157, 132, 245, 0.3);
+        }
+
+        body.dark-mode .recipe-card h3 {
+            color: #9d84f5;
+        }
+
+        body.dark-mode .tips-list li {
+            background: #2a2a2a;
+            border-left-color: #9d84f5;
+        }
+
+        body.dark-mode .tips-list li:before {
+            color: #9d84f5;
+        }
+
+        body.dark-mode .warning {
+            background: #3d3520;
+            border-left-color: #ffc107;
+        }
+
+        body.dark-mode label {
+            color: #c0c0c0;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #667eea;
+            margin: 30px 0 20px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin: 20px 0 10px;
+            font-size: 1.3em;
+        }
+
+        .hero {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            text-align: center;
+            color: #555;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .benefit-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-card h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .calculator {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border-left: 5px solid #667eea;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .recipes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 20px 0;
+        }
+
+        .recipe-card {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .recipe-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .recipe-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .recipe-card ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .recipe-card li {
+            margin: 5px 0;
+        }
+
+        .tips-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips-list li {
+            background: #f8f9fa;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .tips-list li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #764ba2;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .hero, .section {
+                padding: 20px;
+            }
+
+            .benefits {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙 Tryb Ciemny</button>
+            <h1>🏃‍♂️ Zdrowe Życie</h1>
+            <p>Twoja droga do lepszego zdrowia i samopoczucia</p>
+        </header>
+
+        <div class="hero">
+            <p>Witaj w świecie zdrowego życia! Regularna aktywność fizyczna, zbilansowana dieta i pozytywne nawyki to klucz do długiego i szczęśliwego życia. Zacznij swoją podróż już dziś!</p>
+        </div>
+
+        <div class="section">
+            <h2>💪 Korzyści ze Zdrowego Stylu Życia</h2>
+            <div class="benefits">
+                <div class="benefit-card">
+                    <h3>Lepsze Zdrowie</h3>
+                    <p>Regularna aktywność fizyczna zmniejsza ryzyko chorób serca, cukrzycy typu 2 i wielu nowotworów</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Więcej Energii</h3>
+                    <p>Ćwiczenia poprawiają kondycję i wytrzymałość, dając ci więcej energii na co dzień</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Lepszy Nastrój</h3>
+                    <p>Aktywność fizyczna uwalnia endorfiny, poprawiając nastrój i redukując stres</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>Silniejsze Ciało</h3>
+                    <p>Sport wzmacnia mięśnie, kości i układ odpornościowy</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Kalkulator BMI</h2>
+            <div class="calculator">
+                <p>BMI (Body Mass Index) to wskaźnik masy ciała używany do oceny, czy Twoja waga jest odpowiednia dla Twojego wzrostu.</p>
+                
+                <div class="input-group">
+                    <label for="weight">Waga (kg):</label>
+                    <input type="number" id="weight" placeholder="np. 70" min="20" max="300" step="0.1">
+                </div>
+                
+                <div class="input-group">
+                    <label for="height">Wzrost (cm):</label>
+                    <input type="number" id="height" placeholder="np. 175" min="100" max="250" step="0.1">
+                </div>
+                
+                <button onclick="calculateBMI()">Oblicz BMI</button>
+                
+                <div id="bmiResult" class="result"></div>
+            </div>
+
+            <h2>🏃 Kalkulator Kalorii</h2>
+            <div class="calculator">
+                <p>Sprawdź ile kalorii spalasz podczas różnych aktywności fizycznych.</p>
+                
+                <div class="input-group">
+                    <label for="userWeight">Twoja waga (kg):</label>
+                    <input type="number" id="userWeight" placeholder="np. 70" min="20" max="300" step="0.1">
+                </div>
+                
+                <div class="input-group">
+                    <label for="activity">Wybierz aktywność:</label>
+                    <select id="activity">
+                        <option value="3.5">Spacer (wolny)</option>
+                        <option value="5">Spacer (szybki)</option>
+                        <option value="7">Bieganie (wolne tempo)</option>
+                        <option value="10">Bieganie (średnie tempo)</option>
+                        <option value="6">Jazda na rowerze (rekreacyjna)</option>
+                        <option value="8">Pływanie</option>
+                        <option value="6">Aerobik</option>
+                        <option value="8">Siłownia</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="duration">Czas trwania (minuty):</label>
+                    <input type="number" id="duration" placeholder="np. 30" min="1" max="300">
+                </div>
+                
+                <button onclick="calculateCalories()">Oblicz Spalane Kalorie</button>
+                
+                <div id="caloriesResult" class="result"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🥗 Zdrowe Przepisy</h2>
+            <div class="recipes">
+                <div class="recipe-card">
+                    <h3>Owsianka z Owocami</h3>
+                    <p><strong>Składniki:</strong></p>
+                    <ul>
+                        <li>50g płatków owsianych</li>
+                        <li>200ml mleka lub napoju roślinnego</li>
+                        <li>1 banan</li>
+                        <li>Garść jagód</li>
+                        <li>1 łyżka miodu</li>
+                        <li>Orzechy według uznania</li>
+                    </ul>
+                    <p><strong>Przygotowanie:</strong> Ugotuj płatki w mleku, dodaj pokrojone owoce, miód i orzechy. Idealne śniadanie na dobry start dnia!</p>
+                </div>
+
+                <div class="recipe-card">
+                    <h3>Sałatka z Kurczakiem i Quinoa</h3>
+                    <p><strong>Składniki:</strong></p>
+                    <ul>
+                        <li>150g piersi z kurczaka</li>
+                        <li>100g ugotowanej quinoa</li>
+                        <li>Świeże warzywa (pomidor, ogórek, papryka)</li>
+                        <li>Rukola</li>
+                        <li>Oliwa z oliwek, sok z cytryny</li>
+                    </ul>
+                    <p><strong>Przygotowanie:</strong> Upiecz kurczaka, pokrój w kostkę. Wymieszaj z quinoa i warzywami. Polej oliwą i sokiem z cytryny.</p>
+                </div>
+
+                <div class="recipe-card">
+                    <h3>Smoothie Energetyzujące</h3>
+                    <p><strong>Składniki:</strong></p>
+                    <ul>
+                        <li>1 banan</li>
+                        <li>Garść szpinaku</li>
+                        <li>1 jabłko</li>
+                        <li>200ml mleka roślinnego</li>
+                        <li>1 łyżka masła orzechowego</li>
+                        <li>Garść nasion chia</li>
+                    </ul>
+                    <p><strong>Przygotowanie:</strong> Zmiksuj wszystkie składniki na gładką masę. Pij od razu po przygotowaniu!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💡 Porady dla Aktywnego Życia</h2>
+            <ul class="tips-list">
+                <li>Staraj się wykonywać co najmniej 150 minut umiarkowanej aktywności fizycznej tygodniowo (WHO)</li>
+                <li>Pij minimum 2 litry wody dziennie</li>
+                <li>Jedz 5 porcji warzyw i owoców każdego dnia</li>
+                <li>Śpij 7-9 godzin każdej nocy dla optymalnej regeneracji</li>
+                <li>Zacznij od małych kroków - każdy ruch się liczy!</li>
+                <li>Znajdź aktywność, która sprawia Ci przyjemność</li>
+                <li>Ćwicz regularnie, ale pamiętaj o dniach odpoczynku</li>
+                <li>Ogranicz przetworzoną żywność i słodzone napoje</li>
+            </ul>
+
+            <div class="warning">
+                <strong>Ważne!</strong> Przed rozpoczęciem nowego programu ćwiczeń lub diety, skonsultuj się z lekarzem, szczególnie jeśli masz jakiekolwiek problemy zdrowotne.
+            </div>
+        </div>
+
+        <footer>
+            <h3>O Autorze</h3>
+            <p><strong>Damian Kita</strong></p>
+            <p>Więcej informacji na: <a href="https://linktr.ee/kitadamian" target="_blank" rel="noopener">linktr.ee/kitadamian</a></p>
+            <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
+                Informacje na tej stronie są oparte na rekomendacjach WHO (Światowej Organizacji Zdrowia) i innych uznanych źródeł medycznych. Nie zastępują one profesjonalnej porady lekarskiej.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        let isDarkMode = false;
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            const body = document.body;
+            const button = document.querySelector('.theme-toggle');
+            
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+                button.innerHTML = '☀️ Tryb Jasny';
+            } else {
+                body.classList.remove('dark-mode');
+                button.innerHTML = '🌙 Tryb Ciemny';
+            }
+        }
+
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100;
+            const resultDiv = document.getElementById('bmiResult');
+
+            if (!weight || !height || weight <= 0 || height <= 0) {
+                resultDiv.innerHTML = '<p style="color: red;">Proszę wprowadzić prawidłowe wartości!</p>';
+                resultDiv.classList.add('show');
+                return;
+            }
+
+            const bmi = (weight / (height * height)).toFixed(1);
+            let category = '';
+            let color = '';
+            let advice = '';
+
+            if (bmi < 18.5) {
+                category = 'Niedowaga';
+                color = '#ffc107';
+                advice = 'Rozważ konsultację z dietetykiem w celu zbilansowania diety.';
+            } else if (bmi >= 18.5 && bmi < 25) {
+                category = 'Waga prawidłowa';
+                color = '#28a745';
+                advice = 'Świetnie! Kontynuuj zdrowy styl życia.';
+            } else if (bmi >= 25 && bmi < 30) {
+                category = 'Nadwaga';
+                color = '#ffc107';
+                advice = 'Rozważ zwiększenie aktywności fizycznej i poprawę diety.';
+            } else {
+                category = 'Otyłość';
+                color = '#dc3545';
+                advice = 'Zalecana konsultacja z lekarzem i dietetykiem.';
+            }
+
+            resultDiv.innerHTML = `
+                <h3 style="color: ${color};">Twoje BMI: ${bmi}</h3>
+                <p><strong>Kategoria:</strong> ${category}</p>
+                <p>${advice}</p>
+                <p style="margin-top: 15px; font-size: 0.9em; color: #666;">
+                    <strong>Kategorie BMI (WHO):</strong><br>
+                    Niedowaga: < 18,5<br>
+                    Waga prawidłowa: 18,5 - 24,9<br>
+                    Nadwaga: 25 - 29,9<br>
+                    Otyłość: ≥ 30
+                </p>
+            `;
+            resultDiv.classList.add('show');
+        }
+
+        function calculateCalories() {
+            const weight = parseFloat(document.getElementById('userWeight').value);
+            const met = parseFloat(document.getElementById('activity').value);
+            const duration = parseFloat(document.getElementById('duration').value);
+            const resultDiv = document.getElementById('caloriesResult');
+
+            if (!weight || !duration || weight <= 0 || duration <= 0) {
+                resultDiv.innerHTML = '<p style="color: red;">Proszę wprowadzić prawidłowe wartości!</p>';
+                resultDiv.classList.add('show');
+                return;
+            }
+
+            const calories = Math.round((met * weight * duration) / 60);
+            const activityName = document.getElementById('activity').options[document.getElementById('activity').selectedIndex].text;
+
+            resultDiv.innerHTML = `
+                <h3 style="color: #667eea;">Spalonych kalorii: ${calories} kcal</h3>
+                <p><strong>Aktywność:</strong> ${activityName}</p>
+                <p><strong>Czas trwania:</strong> ${duration} minut</p>
+                <p style="margin-top: 15px; font-size: 0.9em; color: #666;">
+                    Wartości są przybliżone i mogą się różnić w zależności od intensywności ćwiczeń i indywidualnego metabolizmu.
+                </p>
+            `;
+            resultDiv.classList.add('show');
+        }
+    </script>
+</body>
+</html>
